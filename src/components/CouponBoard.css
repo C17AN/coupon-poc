@@ -63,6 +63,14 @@
   overflow-x: visible; /* keep drag visible outside horizontally/vertically */
   -webkit-overflow-scrolling: touch;
   margin-bottom: 12px;
+  /* 스크롤바 숨기기 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Webkit 브라우저(Chrome, Safari 등)에서 스크롤바 숨기기 */
+.available-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .available-list {

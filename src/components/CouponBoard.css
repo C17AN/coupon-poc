@@ -2,7 +2,7 @@
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
   padding: 16px 14px;
   box-sizing: border-box;
 }
@@ -27,6 +27,10 @@
   background: #f9f9f9;
 }
 
+.slot-filled {
+  border-style: solid;
+}
+
 .placeholder {
   font-size: 2rem;
   color: #ccc;
@@ -44,6 +48,7 @@
   font-weight: bold;
   cursor: grab;
   user-select: none;
+  flex-direction: column;
 }
 
 .slot .coupon {
@@ -54,16 +59,18 @@
 /* scroll container */
 .available-scroll {
   max-height: 260px;
-  overflow-y: auto;
+  overflow-y: auto; /* internal vertical scroll */
+  overflow-x: visible; /* keep drag visible outside horizontally/vertically */
   -webkit-overflow-scrolling: touch;
   margin-bottom: 12px;
 }
 
 .available-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
   overflow: visible; /* allow dragged item to render outside */
+  row-gap: 10px;
+  column-gap: 6px;
 }
 
 /* fallback vertical scroll if wrapping allowed */
@@ -84,17 +91,173 @@
   background: #e0e0e0;
   border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 50px;
   cursor: pointer;
+  font-weight: 700;
+  color: #212121;
 }
 
 .reset-btn:hover {
   background: #d5d5d5;
 }
 
+/* 쿠폰함 버튼 및 수령 버튼 공통 */
+.receive-btn,
+.go-coupon-btn {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.receive-btn {
+  background: #000;
+  color: #fff;
+}
+
+.receive-btn:hover {
+  background: #0f0f0f;
+}
+
+.go-coupon-btn {
+  background: #000;
+  color: #fff;
+}
+
+.go-coupon-btn:hover {
+  background: #222;
+}
+
 .slot-hover {
   border-style: solid;
-  border-color: #3f51b5;
+  border-color: #000;
   background: rgba(63, 81, 181, 0.1);
   transition: background 0.2s, border-color 0.2s;
+}
+
+.drag-hidden {
+  opacity: 0;
+}
+
+.coupon-label {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.coupon-partner {
+  font-size: 0.7rem;
+}
+
+/* Partner filter buttons */
+.partner-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  justify-content: center;
+}
+
+.filter-btn {
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: #fff;
+  opacity: 0.6;
+}
+
+/* 비활성화 상태 */
+.filter-btn:disabled {
+  opacity: 0.25 !important;
+  cursor: not-allowed;
+}
+
+/* 전체 카테고리 전용 버튼 */
+.filter-btn.all-btn {
+  background: #e0e0e0;
+  color: #333;
+}
+
+/* 활성화된 전체 버튼 */
+.filter-btn.all-btn.active {
+  background: #616161;
+  color: #fff;
+  opacity: 1;
+}
+
+.filter-btn.active {
+  opacity: 1;
+  outline: 2px solid #33333333;
+}
+
+.barcode-container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.barcode-container svg {
+  max-width: 100%;
+}
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+}
+
+.dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 24px 20px;
+  border-radius: 8px;
+  max-width: 320px;
+  width: 90%;
+  text-align: center;
+  z-index: 1001;
+}
+
+.dialog-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.dialog-description {
+  font-size: 0.9rem;
+}
+
+.footer-note {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 18px;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 24px 20px;
+  border-radius: 8px;
+  max-width: 320px;
+  width: 90%;
+  text-align: center;
 }
